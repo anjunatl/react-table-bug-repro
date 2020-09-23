@@ -1,0 +1,77 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Solo - Docker Compose",
+        "type": "shell",
+        "command": "./start-compose.sh",
+        "options": {
+          "cwd": "${workspaceRoot}/bin/"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new",
+          "showReuseMessage": false,
+          "clear": false,
+          "group": "test"
+        },
+      },
+      {
+        "label": "Solo - Server Logs",
+        "type": "shell",
+        "command": "./server-logs.sh",
+        "options": {
+          "cwd": "${workspaceRoot}/bin/"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new",
+          "showReuseMessage": false,
+          "clear": false,
+          "group": "test"
+        },
+      },
+      {
+        "label": "Solo - JS watcher",
+        "type": "shell",
+        "command": "./watch-js.sh",
+        "options": {
+          "cwd": "${workspaceRoot}/bin/"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "echo": true,
+          "reveal": "always",
+          "focus": false,
+          "panel": "new",
+          "showReuseMessage": false,
+          "clear": false,
+          "group": "test"
+        },
+      },
+      {
+        "label": "Environment - Bug reproduction",
+        "dependsOn": [
+          "Solo - Docker Compose",
+          "Solo - Server Logs"
+        ],
+        "problemMatcher": []
+      },
+      {
+        "label": "Environment - Development",
+        "dependsOn": [
+          "Solo - Docker Compose",
+          "Solo - Server Logs",
+          "Solo - JS watcher"
+        ],
+        "problemMatcher": []
+      }
+    ]
+  }
+  

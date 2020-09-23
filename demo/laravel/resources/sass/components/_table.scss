@@ -1,0 +1,23 @@
+.table--fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table__filter {
+  @include element-style;
+  width: 100%;
+}
+
+.table__header-title {
+  margin-right: 10px;
+}
+
+.table__header-icon {
+  margin-bottom: -3.5px !important; 
+  padding: 0px;
+  font-size: 16px;
+}
+
+.table__cell--scrollable {
+  overflow: scroll;
+}

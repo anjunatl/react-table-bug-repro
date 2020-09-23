@@ -1,0 +1,17 @@
+version: "3"
+services:
+  bug-demo-environment:
+    container_name: bug-demo
+    image: bug-demo-environment:dev
+    restart: always
+    build: ./demo
+    ports:
+      - "8000:8000"
+    volumes:
+      - composer_data:/bug-demo/vendor
+      - node_data:/bug-demo/node_modules
+      - ./demo/php.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./demo/laravel:/bug-demo
+volumes: 
+  composer_data:
+  node_data:

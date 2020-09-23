@@ -1,0 +1,54 @@
+.table-pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.table-pagination__elements {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 25px;
+}
+
+.table-pagination__page-rows {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 50px;
+
+  select {
+    @include element-style; 
+    text-align: center;
+    margin: 0rem .70rem;
+    width: 5rem;
+  }
+}
+
+.table-pagination__page-nav {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-pagination__page-index {
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-pagination__page-index-input {
+  @include element-style;
+  width: 5em !important;
+  margin: 0em .70rem;
+  text-align: center;
+  height: 22px;
+}
+
+.table-pagination__page-arrows {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 1.75rem;
+
+  button {
+    @include element-style; 
+    margin-right: .70rem;
+    padding: 1px 8px;
+  }
+}

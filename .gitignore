@@ -1,0 +1,12 @@
+.DS_Store
+node_modules
+vendor
+mix-manifest.json
+public/hot
+public/storage
+public/fonts
+public/images
+public/js/*.js
+public/css/*.css
+public/fonts
+*.js.map
