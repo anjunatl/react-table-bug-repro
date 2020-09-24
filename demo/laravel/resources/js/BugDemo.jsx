@@ -43,11 +43,15 @@ const BugDemo = () => {
         setTableOptions(newOptions);
     }
 
-    const clearSelectedWidgets = () => {
-        setSelectedWidgets([]);
+    const handleMultipleRows = (ids) => {
+        console.log("Handling all these rows", ids);
+        setSelectedWidgets([]); // clear the rows
     }
 
+    const previousTableOptions = usePrevious(tableOptions);
+
     const update = async () => {
+        console.log("Loading table data with parameters", tableOptions);
         const {response, error} = await axios
             .post('/data', tableOptions)
             .then(response => ({response}), error => ({error}));
@@ -63,12 +67,14 @@ const BugDemo = () => {
     }
 
     React.useEffect(() => {
-        update();
+        if (!isEqual(tableOptions, previousTableOptions)) {
+            update();
+        }
     }, [tableOptions]);
 
     return (
         <div>
-            <button onClick={clearSelectedWidgets}>Clear selected ({selectedWidgets.length})</button>
+            <button onClick={handleMultipleRows}>Do something with and clear these rows ({selectedWidgets.length})</button>
             <DemoGrid
                 tableData={tableData}
                 tableOptions={tableOptions}

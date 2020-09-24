@@ -12,6 +12,10 @@ services:
       - node_data:/bug-demo/node_modules
       - ./demo/php.ini:/usr/local/etc/php/conf.d/custom.ini
       - ./demo/laravel:/bug-demo
+      - css_data:/bug-demo/public/css
+      - js_data:/bug-demo/public/js
 volumes: 
   composer_data:
   node_data:
+  css_data: 
+  js_data: 

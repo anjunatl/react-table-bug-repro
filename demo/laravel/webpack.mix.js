@@ -16,3 +16,14 @@ mix
     .react('resources/js/app.jsx', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .version();
+
+mix.webpackConfig({
+    module: {
+        rules: [
+            {
+                test: /\.js?$/,
+                loader: 'babel-loader'
+            }
+        ]
+    }
+});

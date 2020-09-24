@@ -1,0 +1,3 @@
+[submodule "react-table"]
+	path = demo/laravel/react-table
+	url = https://github.com/anjunatl/react-table.git

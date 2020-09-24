@@ -11,12 +11,9 @@ export const columnSchema = props => () => [
       </div>)
     },
     {
-      Header: "Toggle",
-      accessor: row => row.toggled,
-      id: "toggled",
-      Cell: ({cell}) => {
-      return <div>{cell.row.original.toggled ? "True" : "False"}</div>;
-      },
+      Header: "ID",
+      accessor: row => row.widgetId,
+      id: "widgetId",
       maxWidth: 150,
     },
   ];

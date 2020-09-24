@@ -44,15 +44,9 @@ export const DemoGrid = props => {
       columns,
       data,
       initialState: props.tableOptions,
-      manualPagination: true, // Tell the usePagination
-      getRowId: React.useCallback(row => row.widgetId, []),
-      // hook that we'll handle our own data fetching
-      // This means we'll also have to provide our own
-      // pageCount.
-      manualSortBy: true, // Enables sorting detection functionality, 
-      // but does not automatically perform row sorting. 
-      // Turn this on if you wish to implement your own sorting outside of the table 
-      // (eg. server-side or manual row grouping/nesting)
+      manualPagination: true, // note: enabling server-side pagination
+      getRowId: React.useCallback(row => row.widgetId, []), // note: using the row's widgetId as its rowId
+      manualSortBy: true, // note: handling sort on server
       pageCount: props.tableData.last_page,
       autoResetPage: !skipPageReset,
       autoResetExpanded: !skipPageReset,
