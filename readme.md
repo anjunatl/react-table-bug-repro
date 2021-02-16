@@ -9,8 +9,12 @@ react-table (seen in both v7.5.1 & v7.6.3) with `manualPagination` & `useRowSele
 - [Row deselection bug in react-table](#row-deselection-bug-in-react-table)
   - [Summary](#summary)
   - [Reproduction steps](#reproduction-steps)
-    - [Expected behavior](#expected-behavior)
-    - [Actual behavior](#actual-behavior)
+    - [toggleAllRowSelected - not all rows get cleared](#toggleallrowselected---not-all-rows-get-cleared)
+      - [Expected behavior](#expected-behavior)
+      - [Actual behavior](#actual-behavior)
+    - [toggleRowSelected - crashes](#togglerowselected---crashes)
+      - [Expected behavior](#expected-behavior-1)
+      - [Actual behavior](#actual-behavior-1)
   - [Bug details](#bug-details)
   - [Potential fix](#potential-fix)
   - [Example source highlights](#example-source-highlights)
@@ -19,20 +23,38 @@ react-table (seen in both v7.5.1 & v7.6.3) with `manualPagination` & `useRowSele
 Reproduction steps
 ---
 
-1. Run `docker-compose up` to start up the reproduction environment
-2. Open http://localhost:8000/ to view the demo page
-3. Select one row or select all rows on one page
-4. Go to another page & select one or many rows
-5. Click the "Do something with and clear these rows" button
+### toggleAllRowSelected - not all rows get cleared
 
-### Expected behavior
+1. Run `docker-compose up` to start the example
+2. Choose one to many rows on the first page
+3. Change to another page
+4. Choose another one to many rows
+5. Click the "Do something" button
 
-- Counter in button should reset to 0
-- Selected rows should no longer be selected
+#### Expected behavior
 
-### Actual behavior
+The selected row counter should reset to 0.
 
-- Page disappears, app crashes
+#### Actual behavior
+
+The selected row counter is not 0 & is the sum of selected rows on non-visible pages
+
+### toggleRowSelected - crashes
+
+1. Run `docker-compose up` to start the example
+2. Click the "Mode" button to change it from "All" to "Row" to enable use of `toggleRowSelected`
+3. Choose one to many rows on the first page
+4. Change to another page
+5. Choose another one to many rows
+6. Click the "Do something" button
+
+#### Expected behavior
+
+The selected row counter should reset to 0.
+
+#### Actual behavior
+
+The page crashes
 
 Bug details
 ---
