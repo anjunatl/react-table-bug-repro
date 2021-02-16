@@ -14,6 +14,8 @@ import {
 } from "react-table";
 
 export const DemoGrid = props => {
+  const selectedWidgets = React.useMemo(() => props.selectedWidgets, [props.selectedWidgets]);
+  const toggleMode = React.useMemo(() => props.toggleMode, [props.toggleMode]);
   const data = React.useMemo(() => props.tableData.data, [props.tableData.data]);
   const columns = React.useMemo(columnSchema(props), [props]);
   const [newPage, setNewPage] = React.useState(0);
@@ -83,16 +85,15 @@ export const DemoGrid = props => {
 
   const previouslySelectedWidgets = usePrevious(props.selectedWidgets);
 
-  React.useEffect(() => {
-    setNewPage(pageIndex);
-    props.updateTableOptions({ page: pageIndex, pageSize, sortBy });
-  }, [pageIndex, pageSize, sortBy]);
 
+  // note: this updates the selectedWidgets state in BugDemo
   React.useEffect(() => {
     const rowIds = Object.keys(selectedRowIds);
     props.updateSelectedWidgets(rowIds);
   }, [selectedRowIds]);
 
+  // note: this is intended to clear the internal table's selection state after the parent component is finished with them
+  // it checks to see if the new copy of props.selectedWidgets is empty, and if so it runs the chosen useRowSelect hook function to change row selection state
   React.useEffect(() => {
     if (previouslySelectedWidgets && previouslySelectedWidgets.length > 0 && props.selectedWidgets.length === 0) {
       console.log("-----------------------------------");
@@ -100,21 +101,34 @@ export const DemoGrid = props => {
       console.log("rows === page because of the server-side pagination configuration");
       console.log("rows:", rows);
       console.log("page:", page);
-      // This only sets selected=false for the current visible page of rows, not all selected rows
-      // because it toggles through the available rows instead of the set of selected rows (selectedFlatRows?)
-      // toggleAllRowsSelected(false);
-      console.log("Running toggleRowSelected(X, false) for each selectedRowId as X -- this will crash when it gets to a row that isn't visible on the page");
-      const selectedIds = Object.keys(selectedRowIds);
-      console.log("Selected row IDs:", selectedIds);
-      console.log("-----------------------------------");
-      each(selectedIds, (rowId) => {
-        const numericId = Number.parseInt(rowId);
-        // React table seems to have some problem with calling toggleRowSelected on a row that isn't visible either  ----- react-dom.development.js?61bb:11102 Uncaught TypeError: Cannot read property 'isSelected' of undefined
-        toggleRowSelected(numericId, false); 
-        console.log("Toggling row selected -> false %i", numericId);
-      });
+
+      if (toggleMode === "all") {
+        console.log("Running toggleAllRowsSelected(false) to change the rows");
+        // This only sets selected=false for the current visible page of rows, not all selected rows
+        // because it toggles through the available rows instead of the set of selected rows (selectedFlatRows?)
+        toggleAllRowsSelected(false);
+      } else if (toggleMode === "row") {
+        console.log("Running toggleRowSelected(X, false) for each selectedRowId as X -- this will crash when it gets to a row that isn't visible on the page");
+        const selectedIds = Object.keys(selectedRowIds);
+        console.log("Selected row IDs:", selectedIds);
+        console.log("-----------------------------------");
+        each(selectedIds, (rowId) => {
+          const numericId = Number.parseInt(rowId);
+          // React table seems to have some problem with calling toggleRowSelected on a row that isn't visible either  ----- react-dom.development.js?61bb:11102 Uncaught TypeError: Cannot read property 'isSelected' of undefined
+          toggleRowSelected(numericId, false); 
+          console.log("Toggling row selected -> false %i", numericId);
+        });
+      }
+      
+      
     }
-  });
+  }, [toggleMode, selectedWidgets]);
+
+
+  React.useEffect(() => {
+    setNewPage(pageIndex);
+    props.updateTableOptions({ page: pageIndex, pageSize, sortBy });
+  }, [pageIndex, pageSize, sortBy]);
 
   return <React.Fragment>
     <table className="table table-striped table--fixed" {...getTableProps()}>

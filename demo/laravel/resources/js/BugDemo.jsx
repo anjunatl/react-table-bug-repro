@@ -5,6 +5,7 @@ import { DemoGrid } from "./DemoGrid";
 import { usePrevious } from './usePrevious';
 
 const BugDemo = () => {
+    const [toggleMode, setToggleMode] = useState("all");
     const [selectedWidgets, setSelectedWidgets] = useState([]);
     const [tableOptions, setTableOptions] = useState({
         sortBy: [{
@@ -45,7 +46,7 @@ const BugDemo = () => {
 
     const handleMultipleRows = (ids) => {
         console.log("Handling all these rows", ids);
-        setSelectedWidgets([]); // clear the rows
+        setSelectedWidgets([]); // clear the rows - triggers DemoGrid's useEffect watching `selectedWidgets`
     }
 
     const previousTableOptions = usePrevious(tableOptions);
@@ -72,15 +73,30 @@ const BugDemo = () => {
         }
     }, [tableOptions]);
 
+    const toggleModeText = toggleMode === "all" ? 'Mode: All - Click to change to row' : 'Mode: Row - Click to change to all';
+    const toggleRowHandler = () => {
+        if (toggleMode === "all") {
+            setToggleMode("row");
+        } else {
+            setToggleMode("all");
+        }
+    }
+
     return (
-        <div>
-            <button onClick={handleMultipleRows}>Do something with and clear these rows ({selectedWidgets.length})</button>
-            <DemoGrid
-                tableData={tableData}
-                tableOptions={tableOptions}
-                selectedWidgets={selectedWidgets}
-                updateTableOptions={updateTableOptions}
-                updateSelectedWidgets={updateSelectedWidgets} />
+        <div className="container pt-2">
+            <div className="row">
+                <div className="col">
+                    <p><button className="btn btn-primary" onClick={toggleRowHandler}>{toggleModeText}</button></p>
+                    <p><button className="btn btn-primary" onClick={handleMultipleRows}>Do something with and clear these rows ({selectedWidgets.length})</button></p>
+                    <DemoGrid
+                        tableData={tableData}
+                        tableOptions={tableOptions}
+                        updateTableOptions={updateTableOptions}
+                        selectedWidgets={selectedWidgets}
+                        updateSelectedWidgets={updateSelectedWidgets}
+                        toggleMode={toggleMode} />
+                </div>
+            </div>
         </div>
     )
 };

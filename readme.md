@@ -13,13 +13,11 @@ react-table (seen in both v7.5.1 & v7.6.3) with `manualPagination` & `useRowSele
     - [Actual behavior](#actual-behavior)
   - [Bug details](#bug-details)
   - [Potential fix](#potential-fix)
-  - [Files of note](#files-of-note)
+  - [Example source highlights](#example-source-highlights)
   - [Related GitHub issues / PRs](#related-github-issues--prs)
 
 Reproduction steps
 ---
-
-TODO: Record screenshot gif of the demo doing the thing and put that here
 
 1. Run `docker-compose up` to start up the reproduction environment
 2. Open http://localhost:8000/ to view the demo page
@@ -60,14 +58,14 @@ Potential fix
 - `cd demo/laravel/react-table && git checkout repro-potential-fix`
 - `cd ../../.. && docker-compose build && docker-compose up` 
 
-Files of note
+Example source highlights
 ---
 
-* `demo/laravel/resources/js/DemoGrid.jsx` - react-table instance
-* `demo/laravel/resources/js/BugDemo.jsx` - demo page that loads data from api
-* `demo/laravel/routes/web.php` - api endpoint that returns paginated data from the controller
-* `demo/laravel/app/Http/Controllers/DemoController.php` - controller that returns test data
-* `demo/laravel/storage/app/test.json` - test data
+* [react-table instance](./demo/laravel/resources/js/DemoGrid.jsx)
+* [demo page that loads data from api](./demo/laravel/resources/js/BugDemo.jsx)
+* [api endpoint that returns paginated data from the controller](./demo/laravel/routes/web.php)
+* [controller that returns test data](./demo/laravel/app/Http/Controllers/DemoController.php)
+* [test data](demo/laravel/storage/app/test.json)
 
 Related GitHub issues / PRs
 ---
