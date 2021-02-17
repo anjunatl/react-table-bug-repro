@@ -14,7 +14,7 @@
         "@babel/plugin-proposal-optional-chaining": "^7.11.0",
         "@babel/plugin-transform-react-jsx": "^7.10.4",
         "@babel/preset-react": "^7.0.0",
-        "axios": "^0.19",
+        "axios": "^0.21.1",
         "babel-loader": "^8.1.0",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
@@ -24,7 +24,7 @@
         "popper.js": "^1.12",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
-        "resolve-url-loader": "^3.1.0",
+        "resolve-url-loader": "^3.1.2",
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0"
     },
